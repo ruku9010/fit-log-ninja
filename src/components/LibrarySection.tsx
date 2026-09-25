@@ -6,7 +6,7 @@ const getLibrary = async () => {
   const response = await fetch(
     "https://api.abcz.workers.dev/api/fitlog",
     {
-      next: { revalidate: 120 },
+       cache: 'force-cache'
     }
   );
 
@@ -30,7 +30,7 @@ const LibrarySection = async () => {
         </p>
       </div>
 
-      <div className="grid w-[96%] mx-auto mb-10 grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div  className="grid w-[96%] mx-auto mb-10 grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
         {libraryData.map((data: libraryData) => (
           <LibraryDataCard key={data.id} data={data} />
         ))}

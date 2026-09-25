@@ -30,6 +30,18 @@ const Links = () => {
           My Plan
         </Link>
       </li>
+      {/* <li>
+        <Link
+          href="/workout-details"
+          className={`rounded-xl px-4 py-2 text-sm ${
+            pathname === "/my-plan"
+              ? "bg-[#1A2312] text-[#C2F800]"
+              : "text-[#9CA3AF]"
+          }`}
+        >
+          My Plan
+        </Link>
+      </li> */}
     </>
   );
 };

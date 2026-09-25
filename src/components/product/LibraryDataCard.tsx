@@ -1,6 +1,7 @@
 
 import { libraryData } from "@/types/libraryData";
 import Image from "next/image";
+import Link from "next/link";
 import { FaRegStar } from "react-icons/fa";
 import { GiMuscleUp } from "react-icons/gi";
 import { IoMdTime } from "react-icons/io";
@@ -8,6 +9,7 @@ import { IoMdTime } from "react-icons/io";
 interface LibraryDataCardProps {
   data: libraryData;
 }
+
 
 const LibraryDataCard = ({ data }: LibraryDataCardProps) => {
   const {
@@ -18,10 +20,12 @@ const LibraryDataCard = ({ data }: LibraryDataCardProps) => {
     duration,
     caloriesBurned,
     rating,
+    id
   } = data;
-
+  
   return (
-    <div className="card bg-base-100 w-full shadow-sm overflow-hidden">
+    <Link href={`/workout-details/${id}`}>
+    <div className="card bg-base-100 w-full shadow-sm overflow-hidden cursor-pointer">
       {/* Image */}
       <figure className="h-56 w-full">
         <Image
@@ -78,6 +82,7 @@ const LibraryDataCard = ({ data }: LibraryDataCardProps) => {
         </div>
       </div>
     </div>
+    </Link>
   );
 };
 
