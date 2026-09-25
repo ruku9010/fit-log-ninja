@@ -17,7 +17,7 @@ const NavBar = () => {
 
       <li>
         <Link
-          href="/"
+          href="/my-plan"
           className="rounded-xl px-4 py-2 text-sm text-[#9CA3AF] active:bg-[#1A2312] active:text-[#C2F800]"
         >
           My Plan
@@ -83,7 +83,7 @@ const NavBar = () => {
         <div className="navbar-end gap-4">
           {/* Plan */}
           <button className="flex items-center gap-2 text-sm text-white">
-            <span>Plan</span>
+            <Link href={"/my-plan"}>Plan</Link>
 
             <span className="flex h-8 min-w-8 items-center justify-center rounded-full bg-[#C2F800] px-2 text-black">
               0
@@ -92,7 +92,7 @@ const NavBar = () => {
 
           {/* Saved */}
           <button className="flex items-center gap-2 text-sm text-white">
-            <span>Saved</span>
+            <Link href={"/my-plan"}>Saved</Link>
 
             <span className="flex h-8 min-w-8 items-center justify-center rounded-full outline-1 outline-[#D1D5DB]">
               0
