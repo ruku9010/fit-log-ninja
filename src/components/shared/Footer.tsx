@@ -1,6 +1,4 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import footerLogo from '@/assets/logo.png';
 import { CiDumbbell } from 'react-icons/ci';
 
 const Footer = () => {

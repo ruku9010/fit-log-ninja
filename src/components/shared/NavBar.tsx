@@ -1,34 +1,22 @@
 
 import Image from "next/image";
 import Link from "next/link";
+
 import logo from "@/assets/logo.png";
+import Links from "./Links";
 
 const NavBar = () => {
+ 
+
   const links = (
     <>
-      <li>
-        <Link
-          href="/"
-          className="rounded-xl px-4 py-2 text-sm text-[#9CA3AF] active:bg-[#1A2312] active:text-[#C2F800]"
-        >
-          Workouts
-        </Link>
-      </li>
-
-      <li>
-        <Link
-          href="/my-plan"
-          className="rounded-xl px-4 py-2 text-sm text-[#9CA3AF] active:bg-[#1A2312] active:text-[#C2F800]"
-        >
-          My Plan
-        </Link>
-      </li>
+      <Links />
     </>
   );
 
   return (
     <>
-      <div className="flex py-5 w-full mx-auto bg-black px-4 shadow-sm lg:px-8">
+      <div className="flex w-full mx-auto bg-black px-4 py-5 shadow-sm lg:px-8">
         {/* Left */}
         <div className="navbar-start">
           {/* Mobile Menu */}
@@ -68,7 +56,14 @@ const NavBar = () => {
             href="/"
             className="flex text-xl font-bold text-[#FFFFFF]"
           >
-            <Image src={logo} alt="logo" width={30} height={30} className="mr-2 "/> FITLOG
+            <Image
+              src={logo}
+              alt="logo"
+              width={30}
+              height={30}
+              className="mr-2"
+            />
+            FITLOG
           </Link>
         </div>
 
@@ -82,22 +77,28 @@ const NavBar = () => {
         {/* Right */}
         <div className="navbar-end gap-4">
           {/* Plan */}
-          <button className="flex items-center gap-2 text-sm text-white">
-            <Link href={"/my-plan"}>Plan</Link>
+          <Link
+            href="/my-plan"
+            className="flex items-center gap-2 text-sm text-white"
+          >
+            Plan
 
             <span className="flex h-8 min-w-8 items-center justify-center rounded-full bg-[#C2F800] px-2 text-black">
               0
             </span>
-          </button>
+          </Link>
 
           {/* Saved */}
-          <button className="flex items-center gap-2 text-sm text-white">
-            <Link href={"/my-plan"}>Saved</Link>
+          <Link
+            href="/my-plan"
+            className="flex items-center gap-2 text-sm text-white"
+          >
+            Saved
 
             <span className="flex h-8 min-w-8 items-center justify-center rounded-full outline-1 outline-[#D1D5DB]">
               0
             </span>
-          </button>
+          </Link>
         </div>
       </div>
 
