@@ -1,6 +1,7 @@
 
 import { libraryData } from "@/types/libraryData";
 import LibraryDataCard from "./product/LibraryDataCard";
+import { Suspense } from "react";
 
 const getLibrary = async () => {
   const response = await fetch(
@@ -30,11 +31,13 @@ const LibrarySection = async () => {
         </p>
       </div>
 
+      <Suspense fallback=<span className="loading loading-spinner text-success"></span>>
       <div  className="grid w-[96%] mx-auto mb-10 grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
         {libraryData.map((data: libraryData) => (
           <LibraryDataCard key={data.id} data={data} />
         ))}
       </div>
+      </Suspense>
     </>
   );
 };

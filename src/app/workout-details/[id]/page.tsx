@@ -1,8 +1,8 @@
 
+import AddToPlanButton from "@/components/buttons/AddToPlanButton";
+import SaveForLaterButton from "@/components/buttons/SaveForLaterButton";
 import { libraryData } from "@/types/libraryData";
 import Image from "next/image";
-import { FaRegBookmark } from "react-icons/fa";
-import { LuNotebookTabs } from "react-icons/lu";
 
 interface workoutDetailsProps {
   params: Promise<{
@@ -28,8 +28,8 @@ const workoutDetails = async ({ params }: workoutDetailsProps) => {
   const libraryData = await getLibrary();
 
   const exercise = libraryData.find(
-    (exerciseDetails: libraryData) =>
-      exerciseDetails.id === Number(id),
+    (exercise: libraryData) =>
+      exercise.id === Number(id),
   ) as libraryData;
 
   return (
@@ -159,15 +159,9 @@ const workoutDetails = async ({ params }: workoutDetailsProps) => {
 
           {/* Buttons - Bottom of Content */}
           <div className="mt-auto flex flex-wrap items-center gap-3">
-            <button className="btn bg-[#CCFF00] text-black">
-              <LuNotebookTabs />
-              Add to today's plan
-            </button>
+            <AddToPlanButton exercise={exercise}/>
 
-            <button className="btn border-gray-300">
-              <FaRegBookmark />
-              Save for later
-            </button>
+            <SaveForLaterButton exercise={exercise} />
           </div>
         </div>
       </div>
