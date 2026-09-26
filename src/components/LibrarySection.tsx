@@ -1,19 +1,29 @@
-
 import { libraryData } from "@/types/libraryData";
 import LibraryDataCard from "./product/LibraryDataCard";
-import { Suspense } from "react";
 
 const getLibrary = async () => {
   const response = await fetch(
     "https://api.abcz.workers.dev/api/fitlog",
     {
-       cache: 'force-cache'
+      cache: "no-store",
     }
   );
 
-  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch library data: ${response.status} ${response.statusText}`
+    );
+  }
 
-  return data;
+  const contentType = response.headers.get("content-type");
+
+  if (!contentType?.includes("application/json")) {
+    throw new Error(
+      `Expected JSON response but received ${contentType}`
+    );
+  }
+
+  return response.json();
 };
 
 const LibrarySection = async () => {
@@ -21,7 +31,7 @@ const LibrarySection = async () => {
 
   return (
     <>
-      <div className="w-[96%] mx-auto mb-5">
+      <div className="mx-auto mb-5 w-[96%]">
         <h2 className="text-3xl font-bold text-[#FFFFFF]">
           THE LIBRARY
         </h2>
@@ -31,13 +41,11 @@ const LibrarySection = async () => {
         </p>
       </div>
 
-      <Suspense fallback=<span className="loading loading-spinner text-success"></span>>
-      <div  className="grid w-[96%] mx-auto mb-10 grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mx-auto mb-10 grid w-[96%] grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
         {libraryData.map((data: libraryData) => (
           <LibraryDataCard key={data.id} data={data} />
         ))}
       </div>
-      </Suspense>
     </>
   );
 };

@@ -1,10 +1,9 @@
-
 import AddToPlanButton from "@/components/buttons/AddToPlanButton";
 import SaveForLaterButton from "@/components/buttons/SaveForLaterButton";
 import { libraryData } from "@/types/libraryData";
 import Image from "next/image";
 
-interface workoutDetailsProps {
+interface WorkoutDetailsProps {
   params: Promise<{
     id: string;
   }>;
@@ -14,30 +13,40 @@ const getLibrary = async () => {
   const response = await fetch(
     "https://api.abcz.workers.dev/api/fitlog",
     {
-      cache: "force-cache",
+      cache: "no-store",
     },
   );
 
-  const data = await response.json();
-  return data;
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch library data: ${response.status} ${response.statusText}`,
+    );
+  }
+
+  const contentType = response.headers.get("content-type");
+
+  if (!contentType?.includes("application/json")) {
+    throw new Error(
+      `Expected JSON response but received ${contentType}`,
+    );
+  }
+
+  return response.json();
 };
 
-const workoutDetails = async ({ params }: workoutDetailsProps) => {
+const WorkoutDetails = async ({
+  params,
+}: WorkoutDetailsProps) => {
   const { id } = await params;
-
   const libraryData = await getLibrary();
 
   const exercise = libraryData.find(
-    (exercise: libraryData) =>
-      exercise.id === Number(id),
+    (exercise: libraryData) => exercise.id === Number(id),
   ) as libraryData;
 
   return (
     <div className="w-full px-4 py-6 sm:px-6 lg:px-8">
-      {/* Main Card */}
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 rounded-2xl bg-black p-4 shadow-sm sm:p-6 lg:flex-row lg:p-6">
-
-        {/* Image - 50% */}
         <div className="w-full lg:w-1/2">
           <div className="overflow-hidden rounded-2xl">
             <Image
@@ -50,20 +59,15 @@ const workoutDetails = async ({ params }: workoutDetailsProps) => {
           </div>
         </div>
 
-        {/* Content - 50% */}
         <div className="flex w-full flex-col lg:w-1/2">
-
-          {/* Title - aligned with top of image */}
           <h2 className="mb-3 text-2xl font-bold text-white sm:text-3xl">
             {exercise.name}
           </h2>
 
-          {/* Description */}
           <p className="mb-5 text-[#9CA3AF]">
             {exercise.description}
           </p>
 
-          {/* Highlights */}
           <div className="mb-5">
             <h3 className="mb-2 text-sm font-semibold text-white">
               HIGHLIGHTS
@@ -81,9 +85,8 @@ const workoutDetails = async ({ params }: workoutDetailsProps) => {
             </div>
           </div>
 
-          {/* Exercise Details */}
           <div className="mb-5 overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-            <table className="table w-full text-[#9CA3AF] font-semibold">
+            <table className="table w-full font-semibold text-[#9CA3AF]">
               <tbody className="text-[11px]">
                 <tr>
                   <td>EQUIPMENT</td>
@@ -127,27 +130,28 @@ const workoutDetails = async ({ params }: workoutDetailsProps) => {
             </table>
           </div>
 
-          {/* Instructions */}
           <div className="mb-6">
-            <h2 className="mb-2 text-md font-semibold text-white">
+            <h2 className="text-md mb-2 font-semibold text-white">
               INSTRUCTIONS
             </h2>
 
             <div className="space-y-1 text-[#9CA3AF]">
               <small>
                 1. Lie on the bench with eyes under the bar and feet
-                planted.<br></br>
+                planted.
+                <br />
               </small>
 
               <small>
                 2. Unrack with locked elbows and lower the bar to
-                mid-chest. with eyes under the bar and feet
-                planted.<br></br>
+                mid-chest. with eyes under the bar and feet planted.
+                <br />
               </small>
 
               <small>
                 3. Press up in a slight arc until elbows lock without
-                bouncing.<br></br>
+                bouncing.
+                <br />
               </small>
 
               <small>
@@ -157,10 +161,8 @@ const workoutDetails = async ({ params }: workoutDetailsProps) => {
             </div>
           </div>
 
-          {/* Buttons - Bottom of Content */}
           <div className="mt-auto flex flex-wrap items-center gap-3">
-            <AddToPlanButton exercise={exercise}/>
-
+            <AddToPlanButton exercise={exercise} />
             <SaveForLaterButton exercise={exercise} />
           </div>
         </div>
@@ -169,5 +171,4 @@ const workoutDetails = async ({ params }: workoutDetailsProps) => {
   );
 };
 
-export default workoutDetails;
-
+export default WorkoutDetails;
