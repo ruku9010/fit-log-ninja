@@ -85,7 +85,7 @@ const MyPlanPage = () => {
           type="radio"
           name="my_tabs_1"
           className="tab"
-          aria-label={`Today's Plan (${addToPlan.length})`}
+          aria-label={`Today's Plan`}
           defaultChecked
         />
 
@@ -133,7 +133,7 @@ const MyPlanPage = () => {
           type="radio"
           name="my_tabs_1"
           className="tab"
-          aria-label={`Saved (${saveForLater.length})`}
+          aria-label={`Saved`}
         />
 
         <div className="tab-content border-[#272B33] bg-[#13161D] p-5">
