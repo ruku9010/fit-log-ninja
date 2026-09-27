@@ -24,7 +24,7 @@ const AddToPlanCard = ({ toPlan }: { toPlan: libraryData }) => {
 
   const handleRemove = () => {
     removeFromPlan(toPlan.id);
-    toast.success(`${toPlan.name} removed from today's plan.`);
+    toast.error(`${toPlan.name} removed from today's plan.`);
   };
 
   return (
